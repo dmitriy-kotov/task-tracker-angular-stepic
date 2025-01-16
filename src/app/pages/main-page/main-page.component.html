@@ -1,1 +1,13 @@
-<p>main-page works!</p>
+<div class="container">
+  @for(post of posts(); track post){
+    <div class="post-card">
+      <h2 class="post-title">{{ post.title }}</h2>
+      <p class="post-body">{{ post.body }}</p>
+      <div class="post-footer">
+        <span class="post-id">ID: {{ post.id }}</span>
+        <span class="post-user">Пользователь: {{ post.userId }}</span>
+      </div>
+    </div>
+  }
+</div>
+
