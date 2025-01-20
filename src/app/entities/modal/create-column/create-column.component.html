@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Add Column</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Column Name</mat-label>
+      <input matInput formControlName="typeColum" />
+      @if(form.controls['typeColum'].hasError('required')){
+        <mat-error>
+          Column name is required
+        </mat-error>
+      }
+      @if(form.controls['typeColum'].hasError('maxlength')){
+        <mat-error>
+          Column name cannot exceed 255 characters
+        </mat-error>
+      }
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onCreate()" [disabled]="form.invalid">Create</button>
+</div>

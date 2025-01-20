@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Delete Columns</h1>
+<div mat-dialog-content>
+  <form [formGroup]="columnsForm">
+    <div formArrayName="selectedColumns">
+      @for(col of columns(); track col; let i = $index){
+      <div>
+        <mat-checkbox [formControlName]="i">
+          {{ col.typeColum }}
+        </mat-checkbox>
+      </div>
+      }
+    </div>
+
+  @if(isSubmitted && !hasSelectedColumns){
+    <mat-error>
+      Please select at least one column to delete.
+    </mat-error>
+  }
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="warn" (click)="delSelectColumn()">Delete</button>
+</div>

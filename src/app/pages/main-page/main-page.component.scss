@@ -1,0 +1,190 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  min-height: 100vh;
+}
+
+.kanban-header {
+  width: 100%;
+  max-width: 90rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+
+  h1 {
+    font-size: 2.5rem;
+    color: #333333;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Обёртка для кнопок, чтобы они были рядом */
+  .button-group {
+    display: flex;
+    gap: 16px; /* Отступ между кнопками, подберите значение по вкусу */
+  }
+
+  .add-column-button {
+    display: flex;
+    align-items: center;
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    span {
+      margin-right: 8px;
+      font-weight: 600;
+    }
+
+    .add-icon {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s;
+    }
+
+    &:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5);
+    }
+  }
+
+  .del-column-button {
+    display: flex;
+    align-items: center;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    span {
+      margin-right: 8px;
+      font-weight: 600;
+    }
+
+    /* ВАЖНО: здесь должен быть .del-icon */
+    .del-icon {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s;
+    }
+
+    &:hover {
+      background-color: #b60c0c;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgb(202, 22, 22);
+    }
+  }
+}
+
+/* Остальные стили без изменений */
+
+.kanban-board {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  width: 100%;
+  max-width: 90rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+
+  /* Custom Scrollbar */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+  }
+}
+
+.kanban-column {
+  flex: 10rem;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Responsive Adjustment */
+  @media (max-width: 768px) {
+    flex: 0 0 250px;
+  }
+
+  @media (max-width: 480px) {
+    flex: 0 0 200px;
+  }
+}
+
+/* Responsive Adjustments for Mobile */
+@media (max-width: 600px) {
+  .kanban-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .button-group {
+      margin-top: 15px;
+      width: 100%;
+      /* при необходимости выравнивайте кнопки по центру или к правому краю */
+      justify-content: flex-start;
+    }
+  }
+
+  .kanban-board {
+    padding: 5px;
+    gap: 15px;
+  }
+}

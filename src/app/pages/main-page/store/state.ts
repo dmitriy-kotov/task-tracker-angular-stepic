@@ -1,9 +1,7 @@
-import {Post} from "../../../serviceAPI/service-page/main-page-service/main-page-interface";
-
 export interface MainPageState {
-  posts: Post[];
+  isLoadingMainPage: boolean;
 }
 
 export const initialMainPageState: MainPageState = {
-  posts: [],
-}
+  isLoadingMainPage: false,
+};
