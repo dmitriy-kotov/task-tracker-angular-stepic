@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import {initialTaskState} from "./state";
+import { initialTaskState } from './state';
 import {
   addTaskAction,
   addTaskFailureAction,
@@ -13,8 +13,7 @@ import {
   updateTaskAction,
   updateTaskFailureAction,
   updateTaskSuccessAction,
-} from "./action";
-
+} from './action';
 
 export const taskReducer = createReducer(
   initialTaskState,
@@ -93,5 +92,5 @@ export const taskReducer = createReducer(
     ...state,
     isLoadingTask: false,
     error,
-  })),
+  }))
 );

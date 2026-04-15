@@ -12,21 +12,13 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { NgForOf } from '@angular/common';
-import { updateTaskAction } from "../task/store/action";
-import { MatIcon } from "@angular/material/icon";
-
+import { updateTaskAction } from '../task/store/action';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-column',
   standalone: true,
-  imports: [
-    FormsModule,
-    TaskComponent,
-    CdkDrag,
-    CdkDropList,
-    NgForOf,
-    MatIcon,
-  ],
+  imports: [FormsModule, TaskComponent, CdkDrag, CdkDropList, NgForOf, MatIcon],
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.scss'],
 })
@@ -61,5 +53,5 @@ export class ColumnComponent {
     };
 
     this.store.dispatch(updateTaskAction({ task: updatedTask }));
-  };
+  }
 }

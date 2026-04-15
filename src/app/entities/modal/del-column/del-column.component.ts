@@ -1,22 +1,29 @@
 import { Component, Inject, Signal, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogContent,
   MatDialogRef,
-  MatDialogTitle
+  MatDialogTitle,
 } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Column } from '../../../interface/column/column';
 import { initialColumnState } from '../../../feature/column/store/state';
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatError } from "@angular/material/form-field";
-import { MatButtonModule } from "@angular/material/button";
-import { NgForOf, CommonModule } from "@angular/common";
-import { deleteColumnAction } from "../../../feature/column/store/action";
-import {selectAllColumns} from "../../../feature/column/store/selector";
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatError } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { NgForOf, CommonModule } from '@angular/common';
+import { deleteColumnAction } from '../../../feature/column/store/action';
+import { selectAllColumns } from '../../../feature/column/store/selector';
 
 @Component({
   selector: 'app-del-column',
@@ -57,21 +64,22 @@ export class DelColumnComponent implements OnInit {
 
   get checkboxArray(): FormArray {
     return this.columnsForm.get('selectedColumns') as FormArray;
-  };
+  }
 
   get hasSelectedColumns(): boolean {
     return this.checkboxArray.value.some((checked: boolean) => checked);
-  };
-
+  }
 
   ngOnInit() {
-    const controls = this.columns().map(() => new FormControl(false, Validators.required));
+    const controls = this.columns().map(
+      () => new FormControl(false, Validators.required)
+    );
     this.columnsForm.setControl('selectedColumns', this.fb.array(controls));
-  };
+  }
 
   onCancel() {
     this.dialogRef.close();
-  };
+  }
 
   delSelectColumn() {
     this.isSubmitted = true;

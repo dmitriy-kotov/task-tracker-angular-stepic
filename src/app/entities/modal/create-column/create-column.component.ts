@@ -1,19 +1,24 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Column } from "../../../interface/column/column";
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Column } from '../../../interface/column/column';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
-  MatDialogModule
-} from "@angular/material/dialog";
-import { Store } from "@ngrx/store";
-import { selectAllColumns } from "../../../feature/column/store/selector";
-import { createColumnAction } from "../../../feature/column/store/action";
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { selectAllColumns } from '../../../feature/column/store/selector';
+import { createColumnAction } from '../../../feature/column/store/action';
 import { v4 as uuidv4 } from 'uuid';
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { NgIf } from "@angular/common";
-import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NgIf } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-create-column',
@@ -24,10 +29,10 @@ import { MatButtonModule } from "@angular/material/button";
     MatInputModule,
     NgIf,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './create-column.component.html',
-  styleUrls: ['./create-column.component.scss']
+  styleUrls: ['./create-column.component.scss'],
 })
 export class CreateColumnComponent implements OnInit {
   form!: FormGroup;
@@ -48,11 +53,11 @@ export class CreateColumnComponent implements OnInit {
     this.store.select(selectAllColumns).subscribe((cols) => {
       this.columns = cols;
     });
-  };
+  }
 
   onCancel(): void {
     this.dialogRef.close();
-  };
+  }
 
   onCreate(): void {
     if (this.form.valid) {
@@ -71,5 +76,5 @@ export class CreateColumnComponent implements OnInit {
       this.store.dispatch(createColumnAction({ column: newColumn }));
       this.dialogRef.close();
     }
-  };
+  }
 }

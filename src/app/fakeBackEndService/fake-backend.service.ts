@@ -28,29 +28,32 @@ export class FakeBackendService {
           id: 'column-1',
           typeColum: 'Нужно сделать',
           timeCreated: new Date(),
-          positionNumber: 1
+          positionNumber: 1,
         },
         {
           id: 'column-2',
           typeColum: 'В процессе',
           timeCreated: new Date(),
-          positionNumber: 2
+          positionNumber: 2,
         },
         {
           id: 'column-3',
           typeColum: 'На проверке',
           timeCreated: new Date(),
-          positionNumber: 3
+          positionNumber: 3,
         },
         {
           id: 'column-4',
           typeColum: 'Готово',
           timeCreated: new Date(),
-          positionNumber: 4
-        }
+          positionNumber: 4,
+        },
       ];
 
-      localStorage.setItem(this.columnsStorageKey, JSON.stringify(defaultColumns));
+      localStorage.setItem(
+        this.columnsStorageKey,
+        JSON.stringify(defaultColumns)
+      );
       data = JSON.stringify(defaultColumns);
     }
 
@@ -84,14 +87,14 @@ export class FakeBackendService {
     const data = localStorage.getItem(this.columnsStorageKey);
     let columns: Column[] = data ? JSON.parse(data) : [];
 
-    columns = columns.filter(col => col.id !== columnId);
+    columns = columns.filter((col) => col.id !== columnId);
     localStorage.setItem(this.columnsStorageKey, JSON.stringify(columns));
 
     // Additionally, you might want to remove tasks associated with the deleted column
     const tasksData = localStorage.getItem(this.tasksStorageKey);
     if (tasksData) {
       let tasks: Task[] = JSON.parse(tasksData);
-      tasks = tasks.filter(task => task.columnId !== columnId);
+      tasks = tasks.filter((task) => task.columnId !== columnId);
       localStorage.setItem(this.tasksStorageKey, JSON.stringify(tasks));
     }
 
@@ -106,9 +109,9 @@ export class FakeBackendService {
     const data = localStorage.getItem(this.columnsStorageKey);
     const columns: Column[] = data ? JSON.parse(data) : [];
 
-    const index = columns.findIndex(col => col.id === updatedColumn.id);
+    const index = columns.findIndex((col) => col.id === updatedColumn.id);
     if (index !== -1) {
-      columns[index] = updatedColumn;  // перезаписываем колонку
+      columns[index] = updatedColumn; // перезаписываем колонку
       localStorage.setItem(this.columnsStorageKey, JSON.stringify(columns));
     }
     return of(columns);
@@ -134,7 +137,7 @@ export class FakeBackendService {
           description: 'Молоко, хлеб, яйца',
           columnId: 'column-1',
           timeCreate: new Date(),
-          deadlineTime: new Date()
+          deadlineTime: new Date(),
         },
         {
           id: 'task-2',
@@ -142,7 +145,7 @@ export class FakeBackendService {
           description: 'Пропылесосить и помыть полы',
           columnId: 'column-1',
           timeCreate: new Date(),
-          deadlineTime: new Date()
+          deadlineTime: new Date(),
         },
         {
           id: 'task-3',
@@ -150,7 +153,7 @@ export class FakeBackendService {
           description: 'Реализовать новый сервис',
           columnId: 'column-3',
           timeCreate: new Date(),
-          deadlineTime: new Date()
+          deadlineTime: new Date(),
         },
       ];
 
@@ -160,7 +163,6 @@ export class FakeBackendService {
 
     return of(JSON.parse(data));
   }
-
 
   /**
    * Полностью обновить список задач (перезаписать в localStorage).
@@ -192,7 +194,7 @@ export class FakeBackendService {
     const data = localStorage.getItem(this.tasksStorageKey);
     const tasks: Task[] = data ? JSON.parse(data) : [];
 
-    const index = tasks.findIndex(task => task.id === updatedTask.id);
+    const index = tasks.findIndex((task) => task.id === updatedTask.id);
     if (index !== -1) {
       tasks[index] = updatedTask; // перезаписываем задачу
       localStorage.setItem(this.tasksStorageKey, JSON.stringify(tasks));

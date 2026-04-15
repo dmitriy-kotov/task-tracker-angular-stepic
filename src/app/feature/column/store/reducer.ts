@@ -12,8 +12,8 @@ import {
   createColumnFailureAction,
   deleteColumnFailureAction,
   deleteColumnSuccessAction,
-  deleteColumnAction
-} from "./action";
+  deleteColumnAction,
+} from './action';
 
 export const columnReducer = createReducer(
   initialColumnState,
@@ -79,7 +79,7 @@ export const columnReducer = createReducer(
 
   on(deleteColumnSuccessAction, (state, { columnId }) => ({
     ...state,
-    columns: state.columns.filter(column => column.id !== columnId),
+    columns: state.columns.filter((column) => column.id !== columnId),
     isLoading: false,
     error: null,
   })),

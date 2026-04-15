@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Column } from "../../../interface/column/column";
+import { Column } from '../../../interface/column/column';
 
 export const loadColumnsAction = createAction('[Column] Load Columns');
 
@@ -7,6 +7,7 @@ export const loadColumnsSuccessAction = createAction(
   '[Column] Load Columns Success',
   props<{ columns: Column[] }>()
 );
+
 export const loadColumnsFailureAction = createAction(
   '[Column] Load Columns Failure',
   props<{ error: any }>()

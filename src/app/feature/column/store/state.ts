@@ -1,4 +1,4 @@
-import {Column} from "../../../interface/column/column";
+import { Column } from '../../../interface/column/column';
 
 export interface ColumnState {
   columns: Column[];
