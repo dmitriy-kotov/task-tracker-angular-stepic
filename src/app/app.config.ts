@@ -4,12 +4,17 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store'
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import {mainPageReducer} from "./pages/main-page/store/reducer";
+// import {provideEffects} from "@ngrx/effects";
+// import {MainPageEffects} from "./pages/main-page/store/effect";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
     provideRouter(routes),
     provideStore({}),
+    provideStore({ mainPage: mainPageReducer }), // Register the reducer
+    // provideEffects([MainPageEffects]),
     provideStoreDevtools({
       maxAge: 25, // Сохраняет последние 25 состояний
       logOnly: !isDevMode(), // Ограничивает расширение режимом только для логирования
