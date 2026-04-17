@@ -83,6 +83,7 @@ export const columnReducer = createReducer(
     isLoading: false,
     error: null,
   })),
+  
   on(deleteColumnFailureAction, (state, { error }) => ({
     ...state,
     isLoading: false,
