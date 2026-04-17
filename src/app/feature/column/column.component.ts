@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TaskComponent } from '../task/task.component';
 import { Column } from '../../interface/column/column';
 import { Task } from '../../interface/task/task';
+import { CreateTaskComponent } from '../../entities/modal/create-task/create-task.component';
 import {
   CdkDrag,
   CdkDropList,
@@ -14,6 +15,7 @@ import {
 import { NgForOf } from '@angular/common';
 import { updateTaskAction } from '../task/store/action';
 import { MatIcon } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-column',
@@ -26,7 +28,7 @@ export class ColumnComponent {
   column = input.required<Column & { tasks: Task[] }>();
   connectedIds = input.required<string[]>();
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private dialog: MatDialog) {}
 
   dropTask(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
@@ -53,5 +55,11 @@ export class ColumnComponent {
     };
 
     this.store.dispatch(updateTaskAction({ task: updatedTask }));
+  }
+
+  openModalAddTask() {
+    this.dialog.open(CreateTaskComponent, {
+      width: '400px',
+    });
   }
 }
