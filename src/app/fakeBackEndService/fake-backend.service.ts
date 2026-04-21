@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Column } from '../interface/column/column';
 import { Task } from '../interface/task/task';
 
@@ -81,9 +81,10 @@ export class FakeBackendService {
     if (duplicates.length == 0) {
       columns.push(newColumn);
       localStorage.setItem(this.columnsStorageKey, JSON.stringify(columns));
+      return of(columns);
     }
 
-    return of(columns);
+    return throwError(() => new Error(`Element with same id: ${newColumn.id} has been found`));
   }
 
   deleteColumn(columnId: string): Observable<Column[]> {
@@ -187,9 +188,10 @@ export class FakeBackendService {
     if (duplicates.length == 0) {
       tasks.push(newTask);
       localStorage.setItem(this.tasksStorageKey, JSON.stringify(tasks));
+      return of(tasks);
     }
 
-    return of(tasks);
+    return throwError(() => new Error(`Element with same id: ${newTask.id} has been found`));
   }
 
   /**
