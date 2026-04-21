@@ -77,8 +77,11 @@ export class FakeBackendService {
     const data = localStorage.getItem(this.columnsStorageKey);
     const columns: Column[] = data ? JSON.parse(data) : [];
 
-    columns.push(newColumn);
-    localStorage.setItem(this.columnsStorageKey, JSON.stringify(columns));
+    const duplicates: Column[] = columns.filter((c) => c.id === newColumn.id);
+    if (duplicates.length == 0) {
+      columns.push(newColumn);
+      localStorage.setItem(this.columnsStorageKey, JSON.stringify(columns));
+    }
 
     return of(columns);
   }
@@ -180,8 +183,11 @@ export class FakeBackendService {
     const data = localStorage.getItem(this.tasksStorageKey);
     const tasks: Task[] = data ? JSON.parse(data) : [];
 
-    tasks.push(newTask);
-    localStorage.setItem(this.tasksStorageKey, JSON.stringify(tasks));
+    const duplicates: Task[] = tasks.filter((t) => t.id === newTask.id);
+    if (duplicates.length == 0) {
+      tasks.push(newTask);
+      localStorage.setItem(this.tasksStorageKey, JSON.stringify(tasks));
+    }
 
     return of(tasks);
   }
