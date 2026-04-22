@@ -17,7 +17,14 @@ export class TaskComponent {
 
   constructor(private store: Store) {}
 
-  editTask() {}
+  openModalEditTask() {
+    // this.dialog.open(EditTaskComponent, {
+    //   width: '400px',
+    //   data: {
+    //     columnId: this.task().columnId,
+    //   },
+    // });
+  }
 
   deleteTask() {
     this.store.dispatch(deleteTaskAction({ taskId: this.task().id }));
