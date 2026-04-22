@@ -12,7 +12,6 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { selectAllTasks } from '../../../feature/task/store/selector';
 import { addTaskAction } from '../../../feature/task/store/action';
 import { v4 as uuidv4 } from 'uuid';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,23 +33,21 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class CreateTaskComponent implements OnInit {
   form!: FormGroup;
-  tasks: Task[] = [];
+  columnId!: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CreateTaskComponent>,
     private fb: FormBuilder,
     private store: Store
-  ) {}
+  ) {
+    this.columnId = this.data.columnId;
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(255)]],
       description: ['', [Validators.required, Validators.maxLength(255)]],
-    });
-
-    this.store.select(selectAllTasks).subscribe((myTasks) => {
-      this.tasks = myTasks;
     });
   }
 
@@ -60,14 +57,13 @@ export class CreateTaskComponent implements OnInit {
 
   onCreate(): void {
     if (this.form.valid) {
-      const currentTasks = this.tasks;
       const timeCreated = new Date();
 
       const newTask: Task = {
         id: uuidv4(),
         title: this.form.value.title.trim(),
         description: this.form.value.description.trim(),
-        columnId: 'todo: columnId',
+        columnId: this.columnId,
         timeCreate: timeCreated,
         deadlineTime: timeCreated,
       };

@@ -4,6 +4,9 @@ import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { FakeBackendService } from '../../../fakeBackEndService/fake-backend.service';
 import {
+  addTaskAction,
+  addTaskFailureAction,
+  addTaskSuccessAction,
   loadTasksAction,
   loadTasksFailureAction,
   loadTasksSuccessAction,
@@ -11,11 +14,13 @@ import {
   updateTaskFailureAction,
   updateTaskSuccessAction,
 } from './action';
+import { Task } from '../../../interface/task/task';
 
 @Injectable()
 export class TaskEffects {
   loadTask$;
   updateTask$;
+  addTask$;
 
   constructor(
     private actions$: Actions,
@@ -43,6 +48,25 @@ export class TaskEffects {
           this.fakeBackendService.updateTask(task).pipe(
             map(() => updateTaskSuccessAction({ task })),
             catchError((error) => of(updateTaskFailureAction({ error })))
+          )
+        )
+      )
+    );
+
+    this.addTask$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(addTaskAction),
+        mergeMap(({ task }) =>
+          this.fakeBackendService.addTask(task).pipe(
+            map((updatedTasks: Task[]) => {
+              const createdTask = updatedTasks.find((t) => t.id === task.id);
+              return createdTask
+                ? addTaskSuccessAction({ task: createdTask })
+                : addTaskFailureAction({
+                    error: 'Task not found after creation.',
+                  });
+            }),
+            catchError((error) => of(addTaskFailureAction({ error })))
           )
         )
       )

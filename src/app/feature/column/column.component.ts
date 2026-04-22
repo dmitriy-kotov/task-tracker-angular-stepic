@@ -60,6 +60,9 @@ export class ColumnComponent {
   openModalAddTask() {
     this.dialog.open(CreateTaskComponent, {
       width: '400px',
+      data: {
+        columnId: this.column().id,
+      },
     });
   }
 }
