@@ -209,4 +209,14 @@ export class FakeBackendService {
     }
     return of(tasks);
   }
+
+  deleteTask(taskId: string): Observable<Task[]> {
+    const data = localStorage.getItem(this.tasksStorageKey);
+    let tasks: Task[] = data ? JSON.parse(data) : [];
+
+    tasks = tasks.filter((t) => t.id !== taskId);
+    localStorage.setItem(this.tasksStorageKey, JSON.stringify(tasks));
+
+    return of(tasks);
+  }
 }

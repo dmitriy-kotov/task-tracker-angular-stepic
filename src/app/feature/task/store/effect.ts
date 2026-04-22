@@ -80,7 +80,7 @@ export class TaskEffects {
       this.actions$.pipe(
         ofType(deleteTaskAction),
         mergeMap(({ taskId }) =>
-          this.fakeBackendService.deleteColumn(taskId).pipe(
+          this.fakeBackendService.deleteTask(taskId).pipe(
             map(() => deleteTaskSuccessAction({ taskId })),
             catchError((error) => of(deleteTaskFailureAction({ error })))
           )
