@@ -1,1 +1,37 @@
-<p>edit-task works!</p>
+<h1 mat-dialog-title>Edit Task</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Task Name</mat-label>
+      <input matInput formControlName="title" />
+      @if(form.controls['title'].hasError('required')){
+        <mat-error>
+          Task name is required
+        </mat-error>
+      }
+      @if(form.controls['title'].hasError('maxlength')){
+        <mat-error>
+          Task name cannot exceed 255 characters
+        </mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Task Description</mat-label>
+      <input matInput formControlName="description" />
+      @if(form.controls['description'].hasError('required')){
+        <mat-error>
+          Task description is required
+        </mat-error>
+      }
+      @if(form.controls['description'].hasError('maxlength')){
+        <mat-error>
+          Task description cannot exceed 255 characters
+        </mat-error>
+      }
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="form.invalid">Save</button>
+</div>
