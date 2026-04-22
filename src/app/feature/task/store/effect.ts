@@ -13,6 +13,9 @@ import {
   updateTaskAction,
   updateTaskFailureAction,
   updateTaskSuccessAction,
+  deleteTaskAction,
+  deleteTaskSuccessAction,
+  deleteTaskFailureAction,
 } from './action';
 import { Task } from '../../../interface/task/task';
 
@@ -21,6 +24,7 @@ export class TaskEffects {
   loadTask$;
   updateTask$;
   addTask$;
+  deleteTask$;
 
   constructor(
     private actions$: Actions,
@@ -67,6 +71,18 @@ export class TaskEffects {
                   });
             }),
             catchError((error) => of(addTaskFailureAction({ error })))
+          )
+        )
+      )
+    );
+
+    this.deleteTask$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(deleteTaskAction),
+        mergeMap(({ taskId }) =>
+          this.fakeBackendService.deleteColumn(taskId).pipe(
+            map(() => deleteTaskSuccessAction({ taskId })),
+            catchError((error) => of(deleteTaskFailureAction({ error })))
           )
         )
       )
