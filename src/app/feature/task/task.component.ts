@@ -23,7 +23,7 @@ export class TaskComponent {
     this.dialog.open(EditTaskComponent, {
       width: '400px',
       data: {
-        columnId: this.task().columnId,
+        task: this.task(),
       },
     });
   }

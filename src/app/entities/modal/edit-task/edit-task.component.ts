@@ -12,7 +12,7 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { addTaskAction } from '../../../feature/task/store/action';
+import { updateTaskAction } from '../../../feature/task/store/action';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,11 +28,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
   ],
   templateUrl: './edit-task.component.html',
-  styleUrl: './edit-task.component.scss'
+  styleUrl: './edit-task.component.scss',
 })
 export class EditTaskComponent implements OnInit {
   form!: FormGroup;
-  columnId!: string;
+  readonly task!: Task;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -40,13 +40,19 @@ export class EditTaskComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store
   ) {
-    this.columnId = this.data.columnId;
+    this.task = this.data.task;
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(255)]],
-      description: ['', [Validators.required, Validators.maxLength(255)]],
+      title: [
+        this.task.title,
+        [Validators.required, Validators.maxLength(255)],
+      ],
+      description: [
+        this.task.description,
+        [Validators.required, Validators.maxLength(255)],
+      ],
     });
   }
 
@@ -56,18 +62,16 @@ export class EditTaskComponent implements OnInit {
 
   onSave(): void {
     if (this.form.valid) {
-      const timeCreated = new Date();
-
       const newTask: Task = {
-        id: "null",
+        id: this.task.id,
         title: this.form.value.title.trim(),
         description: this.form.value.description.trim(),
-        columnId: this.columnId,
-        timeCreate: timeCreated,
-        deadlineTime: timeCreated,
+        columnId: this.task.columnId,
+        timeCreate: this.task.timeCreate,
+        deadlineTime: this.task.deadlineTime,
       };
 
-      this.store.dispatch(addTaskAction({ task: newTask }));
+      this.store.dispatch(updateTaskAction({ task: newTask }));
       this.dialogRef.close();
     }
   }
