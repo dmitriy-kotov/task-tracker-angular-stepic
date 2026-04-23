@@ -206,8 +206,10 @@ export class FakeBackendService {
     if (index !== -1) {
       tasks[index] = updatedTask; // перезаписываем задачу
       localStorage.setItem(this.tasksStorageKey, JSON.stringify(tasks));
+      return of(tasks);
     }
-    return of(tasks);
+
+    return throwError(() => new Error(`Task with id: ${updatedTask.id} was not found among others`));
   }
 
   deleteTask(taskId: string): Observable<Task[]> {
